@@ -12,6 +12,7 @@ djoser = "^2.1.0"
 djangorestframework-simplejwt = "4.8.0"
 django-light = "^0.1.0"
 django-cors-headers = "^3.11.0"
+drf-yasg = "^1.20.0"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1.0"
