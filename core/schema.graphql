@@ -1,0 +1,13 @@
+type Query {
+    customers: [Customer]!
+    customer(customerId: ID!): CustomerResult!
+}
+
+type Mutation {
+    createCustomer(version: String!, title: String!): CustomerResult!
+    deleteCustomer(customerId: ID!): DeleteResult!
+    editCustomer(customerId: ID!): DeleteResult!
+    verifyToken(token: String!): VerifyToken
+    refreshToken(token: String!): RefreshToken
+    tokenAuth(username: String!, password:String!): TokenAuth
+}
