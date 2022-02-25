@@ -1,7 +1,6 @@
 type Customer {
     id: ID!
-    version: String!
-    title: String!
+    name: String!
 }
 
 type CustomerResult {

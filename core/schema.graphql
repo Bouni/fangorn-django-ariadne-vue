@@ -4,7 +4,7 @@ type Query {
 }
 
 type Mutation {
-    createCustomer(version: String!, title: String!): CustomerResult!
+    createCustomer(name: String!): CustomerResult!
     deleteCustomer(customerId: ID!): DeleteResult!
     editCustomer(customerId: ID!): DeleteResult!
     verifyToken(token: String!): VerifyToken

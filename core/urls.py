@@ -20,7 +20,6 @@ from ariadne_django.views import GraphQLView
 from .graphql_config import schema
 
 urlpatterns = [
-    path('graphql/', GraphQLView.as_view(schema=schema), name='graphql'),
-    path('admin/', admin.site.urls),
+    path("graphql/", GraphQLView.as_view(schema=schema), name="graphql"),
+    path("admin/", admin.site.urls),
 ]
-

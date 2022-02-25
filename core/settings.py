@@ -48,14 +48,14 @@ MIDDLEWARE = [
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
-    'ariadne_jwt.middleware.JSONWebTokenMiddleware',
+    "ariadne_jwt.middleware.JSONWebTokenMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
 AUTHENTICATION_BACKENDS = [
-    'ariadne_jwt.backends.JSONWebTokenBackend',
-    'django.contrib.auth.backends.ModelBackend'
+    "ariadne_jwt.backends.JSONWebTokenBackend",
+    "django.contrib.auth.backends.ModelBackend",
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
