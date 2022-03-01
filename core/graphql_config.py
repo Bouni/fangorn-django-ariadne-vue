@@ -1,8 +1,8 @@
 from ariadne import (
-    QueryType,
     make_executable_schema,
     load_schema_from_path,
     MutationType,
+    QueryType,
 )
 from ariadne_jwt import (
     resolve_verify,
@@ -11,25 +11,24 @@ from ariadne_jwt import (
     jwt_schema,
     GenericScalar,
 )
-from customers.resolvers import all_customers, get_customer, create_customer, edit_customer, delete_customer
+from .resolvers import backend_version
+from customers.resolvers import query as customer_query, mutation as customer_mutation
 
-type_defs = [
-    load_schema_from_path("core/schema.graphql"),
-    load_schema_from_path("customers/schema.graphql"),
-]
+core_type_defs = load_schema_from_path("core/schema.graphql")
+customer_type_defs = load_schema_from_path("customers/schema.graphql")
+jwt_type_defs = jwt_schema
 
-type_defs += [jwt_schema]
+core_query = QueryType()
+core_query.set_field("backendVersion", backend_version)
 
-query = QueryType()
-query.set_field("customers", all_customers)
-query.set_field("customer", get_customer)
+core_mutation = MutationType()
+core_mutation.set_field("verifyToken", resolve_verify)
+core_mutation.set_field("refreshToken", resolve_refresh)
+core_mutation.set_field("tokenAuth", resolve_token_auth)
 
-mutation = MutationType()
-mutation.set_field("createCustomer", create_customer)
-mutation.set_field("editCustomer", edit_customer)
-mutation.set_field("deleteCustomer", delete_customer)
-mutation.set_field("verifyToken", resolve_verify)
-mutation.set_field("refreshToken", resolve_refresh)
-mutation.set_field("tokenAuth", resolve_token_auth)
-
-schema = make_executable_schema(type_defs, query, mutation, GenericScalar)
+schema = make_executable_schema(
+    [core_type_defs, customer_type_defs, jwt_type_defs],
+    [core_query, customer_query],
+    [core_mutation, customer_mutation],
+    GenericScalar,
+)

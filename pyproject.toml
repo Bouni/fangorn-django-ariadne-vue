@@ -4,6 +4,9 @@ version = "0.1.0"
 description = ""
 authors = ["Bouni <bouni@owee.de>"]
 
+[tool.black]
+exclude = '(migrations)'
+
 [tool.poetry.dependencies]
 python = "^3.10"
 Django = "^4.0.2"
@@ -11,6 +14,8 @@ django-light = "^0.1.0"
 django-cors-headers = "^3.11.0"
 ariadne-django = "^0.2.0"
 ariadne-jwt = "^0.1.6"
+django-countries = "^7.3.1"
+pyuca = "^1.2"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1.0"

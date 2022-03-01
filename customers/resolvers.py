@@ -1,23 +1,36 @@
+from ariadne import QueryType, MutationType
 from ariadne_jwt.decorators import login_required
 from .models import Customer
 
+query = QueryType()
+mutation = MutationType()
 
+
+@query.field("allCustomers")
 @login_required
 def all_customers(*_):
     customers = Customer.objects.all()
     return customers
 
+
+@query.field("customer")
 @login_required
 def get_customer(*_, customerId):
-    customer = Customer.objects.get(pk=customerId)
-    return {"success": True, "customer": customer, "errors": None}
+    try:
+        customer = Customer.objects.get(pk=customerId)
+        return {"success": True, "customer": customer, "errors": None}
+    except Exception as error:
+        return {"success": False, "customer": None, "errors": [str(error)]}
 
 
+@mutation.field("createCustomer")
 @login_required
 def create_customer(_, info, name):
     customer = Customer.objects.create(name=name)
     return {"success": True, "customer": customer, "errors": None}
 
+
+@mutation.field("editCustomer")
 @login_required
 def edit_customer(_, info, customerId, name):
     customer = Customer.objects.get(pk=customerId)
@@ -25,6 +38,8 @@ def edit_customer(_, info, customerId, name):
     customer.save()
     return {"success": True, "customer": customer, "errors": None}
 
+
+@mutation.field("deleteCustomer")
 @login_required
 def delete_customer(*_, customerId):
     Customer.objects.get(pk=customerId).delete()

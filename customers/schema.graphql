@@ -1,11 +1,38 @@
-type CustomerType {
-    type: String!
+extend type Query {
+    allCustomers: [Customer]!
+    customer(customerId: ID!): CustomerResult!
+}
+
+extend type Mutation {
+    createCustomer(name: String!): CustomerResult!
+    deleteCustomer(customerId: ID!): DeleteResult!
+    editCustomer(customerId: ID!, name: String!): CustomerResult!
+}
+
+type Salutation {
+    name: String!
+}
+
+type Country {
+    name: String
+    code: String
+    alpha3: String
+    numeric: Int
+    ioc_code: String
 }
 
 type Customer {
     id: ID!
+    salutation: Salutation
     name: String!
-    type: CustomerType
+    firstname: String
+    address: String
+    city: String
+    zipcode: String
+    country: Country
+    notes: String
+    created: String 
+    modified: String 
 }
 
 type CustomerResult {

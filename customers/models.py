@@ -1,16 +1,29 @@
 from django.db import models
+from django_countries.fields import CountryField
 
-class CustomerType(models.Model):
 
-    type = models.CharField(max_length=50)
+class Salutation(models.Model):
+
+    name = models.CharField(max_length=20)
 
     def __str__(self):
-        return self.type
+        return self.name
+
 
 class Customer(models.Model):
 
-    name = models.CharField(max_length=200)
-    type = models.ForeignKey("CustomerType", on_delete=models.CASCADE, null=True, blank=True)
+    salutation = models.ForeignKey(
+        "Salutation", on_delete=models.PROTECT, null=True, blank=True
+    )
+    name = models.CharField(max_length=100)
+    firstname = models.CharField(max_length=100, null=True, blank=True)
+    address = models.CharField(max_length=100, null=True, blank=True)
+    city = models.CharField(max_length=100, null=True, blank=True)
+    zipcode = models.CharField(max_length=20, null=True, blank=True)
+    country = CountryField(null=True, blank=True)
+    notes = models.TextField(null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
