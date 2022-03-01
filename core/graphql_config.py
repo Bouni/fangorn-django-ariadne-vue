@@ -11,7 +11,7 @@ from ariadne_jwt import (
     jwt_schema,
     GenericScalar,
 )
-from customers.resolvers import all_customers, get_customer, create_customer
+from customers.resolvers import all_customers, get_customer, create_customer, edit_customer, delete_customer
 
 type_defs = [
     load_schema_from_path("core/schema.graphql"),
@@ -26,6 +26,8 @@ query.set_field("customer", get_customer)
 
 mutation = MutationType()
 mutation.set_field("createCustomer", create_customer)
+mutation.set_field("editCustomer", edit_customer)
+mutation.set_field("deleteCustomer", delete_customer)
 mutation.set_field("verifyToken", resolve_verify)
 mutation.set_field("refreshToken", resolve_refresh)
 mutation.set_field("tokenAuth", resolve_token_auth)

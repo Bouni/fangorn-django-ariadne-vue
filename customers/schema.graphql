@@ -1,6 +1,11 @@
+type CustomerType {
+    type: String!
+}
+
 type Customer {
     id: ID!
     name: String!
+    type: CustomerType
 }
 
 type CustomerResult {
