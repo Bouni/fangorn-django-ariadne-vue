@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "django_countries",
     "ariadne_django",
-    "customers"
+    "customers",
 ]
 
 MIDDLEWARE = [
@@ -138,4 +138,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 GRAPHQL_JWT = {
     "JWT_VERIFY_EXPIRATION": True,
     "JWT_EXPIRATION_DELTA": timedelta(seconds=60 * 60),
+    "JWT_ALLOW_REFRESH": True,
 }
