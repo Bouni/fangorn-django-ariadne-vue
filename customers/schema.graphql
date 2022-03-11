@@ -23,6 +23,7 @@ type Country {
 
 type Customer {
     id: ID!
+    customer_number: Int!
     salutation: Salutation
     name: String!
     firstname: String
@@ -30,6 +31,9 @@ type Customer {
     city: String
     zipcode: String
     country: Country
+    phone: String
+    mobile: String
+    email: String
     notes: String
     created: String 
     modified: String 

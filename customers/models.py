@@ -12,6 +12,7 @@ class Salutation(models.Model):
 
 class Customer(models.Model):
 
+    customer_number = models.PositiveIntegerField()
     salutation = models.ForeignKey(
         "Salutation", on_delete=models.PROTECT, null=True, blank=True
     )
@@ -21,6 +22,9 @@ class Customer(models.Model):
     city = models.CharField(max_length=100, null=True, blank=True)
     zipcode = models.CharField(max_length=20, null=True, blank=True)
     country = CountryField(null=True, blank=True)
+    phone = models.CharField(max_length=100, blank=True, default="")
+    mobile = models.CharField(max_length=100, blank=True, default="")
+    email = models.CharField(max_length=100, blank=True, default="")
     notes = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
