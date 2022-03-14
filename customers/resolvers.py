@@ -1,9 +1,17 @@
 from ariadne import QueryType, MutationType
 from ariadne_jwt.decorators import login_required
+from django_countries import countries
 from .models import Customer, Salutation
 
 query = QueryType()
 mutation = MutationType()
+
+@query.field("allCountries")
+@login_required
+def all_countries(*_):
+    print([x for x in countries])
+    #countries = [] 
+    return countries
 
 @query.field("allSalutations")
 @login_required
