@@ -1,10 +1,15 @@
 from ariadne import QueryType, MutationType
 from ariadne_jwt.decorators import login_required
-from .models import Customer
+from .models import Customer, Salutation
 
 query = QueryType()
 mutation = MutationType()
 
+@query.field("allSalutations")
+@login_required
+def all_salutations(*_):
+    salutations = Salutation.objects.all()
+    return salutations
 
 @query.field("allCustomers")
 @login_required
