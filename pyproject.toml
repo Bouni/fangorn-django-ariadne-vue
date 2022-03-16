@@ -16,6 +16,7 @@ ariadne-django = "^0.2.0"
 ariadne-jwt = "^0.1.6"
 django-countries = "^7.3.1"
 pyuca = "^1.2"
+Faker = "^13.3.2"
 
 [tool.poetry.dev-dependencies]
 black = "^22.1.0"
