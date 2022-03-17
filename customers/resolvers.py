@@ -9,8 +9,6 @@ mutation = MutationType()
 @query.field("allCountries")
 @login_required
 def all_countries(*_):
-    print([x for x in countries])
-    #countries = [] 
     return countries
 
 @query.field("allSalutations")
@@ -38,17 +36,20 @@ def get_customer(*_, customerId):
 
 @mutation.field("createCustomer")
 @login_required
-def create_customer(_, info, name):
-    customer = Customer.objects.create(name=name)
+def create_customer(_, info, input):
+    input.pop("id")
+    input.pop("customer_number")
+    input["salutation"] = Salutation.objects.filter(name=input["salutation"]["name"]).first()
+    input["country"] = input["country"]["code"] 
+    customer = Customer.objects.create(**input)
     return {"success": True, "customer": customer, "errors": None}
 
 
 @mutation.field("editCustomer")
 @login_required
-def edit_customer(_, info, customerId, name):
+def edit_customer(_, info, customerId, input):
     customer = Customer.objects.get(pk=customerId)
-    customer.name = name
-    customer.save()
+    customer.update(input)
     return {"success": True, "customer": customer, "errors": None}
 
 

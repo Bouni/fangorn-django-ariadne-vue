@@ -6,20 +6,48 @@ extend type Query {
 }
 
 extend type Mutation {
-    createCustomer(name: String!): CustomerResult!
+    createCustomer(input: CustomerInput!): CustomerResult!
     deleteCustomer(customerId: ID!): DeleteResult!
-    editCustomer(customerId: ID!, name: String!): CustomerResult!
+    editCustomer(customerId: ID!, input: CustomerInput!): CustomerResult!
+}
+
+input SalutationInput {
+    name: String!
 }
 
 type Salutation {
     name: String!
 }
+
+input CountryInput {
+    name: String
+    code: String
+}
+
 type Country {
     name: String
     code: String
     alpha3: String
     numeric: Int
     ioc_code: String
+}
+
+input CustomerInput {
+    id: ID!
+    customer_number: Int
+    salutation: SalutationInput 
+    name: String!
+    firstname: String
+    address: String
+    city: String
+    zipcode: String
+    country: CountryInput 
+    phone: String
+    mobile: String
+    email: String
+    notes: String
+    created: String 
+    modified: String 
 }
 
 type Customer {

@@ -29,5 +29,27 @@ class Customer(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ["-customer_number"]
+
+    def _get_next_customer_number(self):
+        c = Customer.objects.order_by("-customer_number").first()
+        return c.customer_number + 1
+
+    def save(self, *args, **kwargs):
+        if "customer_number" not in kwargs:
+            self.customer_number = self._get_next_customer_number()
+        super(Customer, self).save(*args, **kwargs)
+
+    def update(self, *args, **kwargs):
+        for name, values in kwargs.items():
+            if name == "customer_number":
+                continue
+            try:
+                setattr(self, name, values)
+            except KeyError:
+                pass
+        self.save()
+
     def __str__(self):
         return self.name
